@@ -11,7 +11,11 @@ const port = process.env.PORT || 3001; // ✅ use dynamic port for Render
 
 // ✅ CORS: Allow GitHub Pages frontend
 app.use(cors({
-  origin: ['https://pheello-codes.github.io/launchfy-landing-page/', 'https://launchfy-digitals-sa.onrender.com']
+  origin: [
+    'https://pheello-codes.github.io',          // ✅ GitHub Pages origin
+    'https://launchfy-digitals-sa.onrender.com', // ✅ Your backend itself
+    'http://127.0.0.1:5500'                      // ✅ For local HTML testing (optional)
+  ]
 }));
 
 // ✅ Middleware to parse body
