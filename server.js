@@ -45,6 +45,10 @@ app.post('/send-form', (req, res) => {
   });
 });
 
+app.get('/', (req, res) => {
+  res.send('✅ Launchify backend is live!');
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
