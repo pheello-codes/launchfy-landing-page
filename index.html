@@ -179,77 +179,90 @@
   </section>
 
   <section class="form-section">
-    <h2 class="section-title">Prefer a Form?</h2>
-    <p>Fill in your details and we'll call you back.</p>
-    <form id="contactForm" action="https://launchfy-digitals-sa.onrender.com/send-form" method="POST">
+  <h2 class="section-title">Prefer a Form?</h2>
+  <p>Fill in your details and we'll call you back.</p>
+  <form id="contactForm" action="https://launchfy-digitals-sa.onrender.com/send-form" method="POST">
 
-      <label for="name">Name:</label><br />
-      <input type="text" id="name" name="name" required /><br /><br />
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="_replyto" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address" /><br /><br />
-      <label for="phone">Phone Number:</label><br />
-      <input type="tel" id="phone" name="phone" /><br /><br />
-      <label for="message">Message:</label><br />
-      <textarea id="message" name="message" rows="4"></textarea><br /><br />
-      <button type="submit">Submit</button>
-    </form>
-    <p id="successMessage" style="color: green; display: none;">Thank you! Your message has been sent successfully.</p>
-    <p id="errorMessage" style="color: red; display: none;">Oops! Something went wrong. Please try again later.</p>
-    <script>
-      const form = document.getElementById('contactForm');
-      const successMessage = document.getElementById('successMessage');
-      const errorMessage = document.getElementById('errorMessage');
-      const submitButton = form.querySelector('button[type="submit"]');
+    <label for="name">Name:</label><br />
+    <input type="text" id="name" name="name" required /><br /><br />
+    
+    <label for="email">Email:</label><br />
+    <input
+      type="email"
+      id="email"
+      name="_replyto"
+      required
+      pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+      title="Please enter a valid email address" /><br /><br />
+    
+    <label for="phone">Phone Number:</label><br />
+    <input type="tel" id="phone" name="phone" /><br /><br />
+    
+    <label for="message">Message:</label><br />
+    <textarea id="message" name="message" rows="4"></textarea><br /><br />
+    
+    <button type="submit">Submit</button>
+  </form>
+  
+  <p id="successMessage" style="color: green; display: none;">Thank you! Your message has been sent successfully.</p>
+  <p id="errorMessage" style="color: red; display: none;">Oops! Something went wrong. Please try again later.</p>
+  
+  <script>
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const submitButton = form.querySelector('button[type="submit"]');
 
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
 
-        // Show loading state
-        submitButton.classList.add('loading');
-        submitButton.disabled = true;
-        const spinner = document.createElement('span');
-        spinner.classList.add('loading-spinner');
-        submitButton.appendChild(spinner);
+      // Show loading state
+      submitButton.classList.add('loading');
+      submitButton.disabled = true;
+      const spinner = document.createElement('span');
+      spinner.classList.add('loading-spinner');
+      submitButton.appendChild(spinner);
 
-        const formData = new FormData(form);
-        const data = {};
-        formData.forEach((value, key) => (data[key] = value));
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => (data[key] = value));
 
-        fetch(form.action, {
-          method: form.method,
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(result => {
-          // Remove loading state
-          submitButton.classList.remove('loading');
-          submitButton.disabled = false;
-          submitButton.removeChild(spinner);
+      fetch(form.action, {
+        method: form.method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        // Remove loading state
+        submitButton.classList.remove('loading');
+        submitButton.disabled = false;
+        submitButton.removeChild(spinner);
 
-          if (result.success) {
-            successMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
-            form.reset();
-          } else {
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'block';
-          }
-        })
-        .catch(() => {
-          // Remove loading state
-          submitButton.classList.remove('loading');
-          submitButton.disabled = false;
-          submitButton.removeChild(spinner);
-
+        if (result.success) {
+          successMessage.style.display = 'block';
+          errorMessage.style.display = 'none';
+          form.reset();
+        } else {
           successMessage.style.display = 'none';
           errorMessage.style.display = 'block';
-        });
+        }
+      })
+      .catch(() => {
+        // Remove loading state
+        submitButton.classList.remove('loading');
+        submitButton.disabled = false;
+        submitButton.removeChild(spinner);
+
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
       });
-    </script>
-  </section>
+    });
+  </script>
+</section>
+
 
   <section class="testimonial">
     <h2 class="section-title">Real Results</h2>
